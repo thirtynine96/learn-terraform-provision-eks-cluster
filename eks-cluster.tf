@@ -8,6 +8,11 @@ module "eks" {
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
   cluster_endpoint_public_access = true
+  tags = {
+    GBL_CLASS_0 = "OPERATION"
+    GBL_CLASS_1 = "bastiondb"
+  }
+
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
@@ -23,16 +28,19 @@ module "eks" {
       min_size     = 1
       max_size     = 3
       desired_size = 2
+
     }
 
     two = {
       name = "node-group-2"
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3.medium"]
 
       min_size     = 1
       max_size     = 2
       desired_size = 1
+
+
     }
   }
 }
